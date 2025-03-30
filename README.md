@@ -1,21 +1,11 @@
 # Friendly Text Moderator (Python)
 
-A simple Streamlit app that uses the HuggingFace Friendly Text Moderator API to check if your text is safe, friendly, and appropriate.
-
-## Features
-
-- User-friendly interface to input text and get moderation results.
-- Uses HuggingFace API for text moderation.
-- Option to switch between GradioClient and HuggingFace API for moderation.
-
-## Prerequisites
-
-- Python 3.7 or higher
-- pip (Python package installer)
+A simple Streamlit app that uses the HuggingFace Friendly Text Moderator API.
 
 ## Setup
 
-1. **Clone the repository:**
+1. Clone the repo
+2. Create a `.env` file with your HuggingFace API token
+3. Install dependencies:
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   pip install -r requirements.txt
