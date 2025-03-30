@@ -7,7 +7,7 @@ st.title("🤖 Friendly Text Moderator")
 st.write("Check if your text is safe, friendly, and appropriate.")
 
 # Initialize the moderator
-moderator = TextModerator()  # No mode param needed now
+moderator = TextModerator()
 
 # Text input
 user_input = st.text_area("Enter your text below:")
