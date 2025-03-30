@@ -6,8 +6,8 @@ st.set_page_config(page_title="Friendly Text Moderator", layout="centered")
 st.title("🤖 Friendly Text Moderator")
 st.write("Check if your text is safe, friendly, and appropriate.")
 
-# Initialize the moderator with default mode = gradio_client
-moderator = TextModerator(mode="gradio_client")
+# Initialize the moderator
+moderator = TextModerator()  # No mode param needed now
 
 # Text input
 user_input = st.text_area("Enter your text below:")
@@ -26,9 +26,31 @@ if st.button("Moderate Text"):
     if user_input.strip():
         with st.spinner("Moderating..."):
             try:
-                result = moderator.moderate(user_input, safer_threshold)
+                result = moderator.moderate(user_input)
+
+                # Extract dictionary from result
+                if isinstance(result, list):
+                    scores = result[0]  # First item is the dict
+                else:
+                    scores = result
+
+                # Filter flagged categories
+                flagged = {
+                    k: v for k, v in scores.items()
+                    if isinstance(v, float) and v > safer_threshold
+                }
+
                 st.success("Moderation Complete!")
-                st.json(result)
+
+                st.subheader("All Category Scores:")
+                st.json(scores)
+
+                if flagged:
+                    st.error("⚠️ Flagged Categories:")
+                    st.json(flagged)
+                else:
+                    st.info("✅ Text is within safe limits.")
+
             except Exception as e:
                 st.error(f"Error: {str(e)}")
     else:
